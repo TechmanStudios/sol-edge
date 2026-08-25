@@ -1,0 +1,45 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sol-edge"
+version = "0.1.0"
+description = "Versioned contracts and canonical evidence for human-governed edge experiments"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Techman Studios" }]
+dependencies = [
+  "pydantic>=2.12,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+  "mypy>=1.17,<2",
+  "pytest>=8.4,<9",
+  "ruff>=0.12,<1",
+]
+
+[project.scripts]
+sol-edge = "sol_edge.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sol_edge"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["sol_edge"]
+mypy_path = "src"
+
