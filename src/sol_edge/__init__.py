@@ -1,4 +1,4 @@
-"""SOL-Edge Foundation 0.1 public contracts."""
+"""SOL-Edge public contract API; the Foundation 0.2 runtime is in sol_edge.runtime."""
 
 from sol_edge.canonical import canonical_bytes, canonical_json, digest_data
 from sol_edge.contracts import (
@@ -25,4 +25,4 @@ __all__ = [
     "structured_errors",
 ]
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"

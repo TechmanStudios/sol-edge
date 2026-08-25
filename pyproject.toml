@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "sol-edge"
-version = "0.1.0"
-description = "Versioned contracts and canonical evidence for human-governed edge experiments"
+version = "0.2.0"
+description = "Versioned contracts, canonical evidence, and pure replay for edge experiments"
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [{ name = "Techman Studios" }]
@@ -42,4 +42,3 @@ python_version = "3.11"
 strict = true
 packages = ["sol_edge"]
 mypy_path = "src"
-
