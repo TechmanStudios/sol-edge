@@ -32,3 +32,5 @@ Digests use SHA-256 and the lowercase format `sha256:<64 hexadecimal characters>
 process-randomized `hash()` is never used. A digest is computed over the complete canonical semantic
 envelope, so schema name, schema version, and semantic content are bound together.
 
+Foundation 0.2 reuses this profile without modifying it. Runtime event identity excludes only its
+derived `event_digest`; runtime state identity excludes only its derived `state_digest`.

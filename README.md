@@ -1,8 +1,12 @@
-# SOL-Edge Foundation 0.1
+# SOL-Edge Foundation 0.2
 
-SOL-Edge Foundation 0.1 defines versioned, immutable contracts and deterministic evidence identity
-for human-governed edge experiments. It stops at the eligibility boundary: it does not operate a
-device, call a model, issue approval credentials, sign decisions, or maintain a durable ledger.
+SOL-Edge Foundation 0.2 adds a versioned, immutable event envelope, derived runtime state, pure
+reducer, and deterministic replay for one pre-execution experiment attempt. It builds on the 0.1
+contracts and canonical evidence identity without changing their semantics.
+
+This is foundation software, not a production runtime. It stops at the eligibility boundary: it does
+not operate a device, call a model, issue approval credentials, sign decisions, access a network, or
+maintain a durable ledger.
 
 ## Authority boundaries
 
@@ -37,6 +41,15 @@ after validation. Pydantic `ValidationError` values can be projected through `st
 to stable path/code/message records without leaking raw model-like input. See
 [CANONICALIZATION.md](CANONICALIZATION.md) for the semantic identity rules.
 
+## Pre-execution runtime
+
+Foundation 0.2 accepts only four event types: `RUN_OPENED`, `PROPOSAL_RECORDED`,
+`EVIDENCE_RECORDED`, and `POLICY_DECISION_RECORDED`. Their digests form a chain, and a pure reducer
+derives immutable state without filesystem, network, clock, or model access.
+
+Sequence numbers—not timestamps—determine replay order. The five policy-derived states are terminal
+for an attempt; retrying means opening a new run ID. See [docs/STATE_MACHINE.md](docs/STATE_MACHINE.md).
+
 ## Development
 
 ```powershell
@@ -47,7 +60,9 @@ python -m venv .venv
 .venv\Scripts\python -m ruff format --check .
 .venv\Scripts\python -m mypy src
 .venv\Scripts\python -m sol_edge eligible
+.venv\Scripts\python -m sol_edge replay eligible
 ```
 
-The last command prints the canonical semantic representation and SHA-256 digest of the deterministic
-eligible fixture. No command in Foundation 0.1 performs physical action.
+The first fixture command prints the 0.1 canonical decision and digest. The replay command prints the
+final status, event count, chain head, and state digest for a deterministic 0.2 stream. Neither
+command writes files or performs physical action.
